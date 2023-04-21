@@ -51,7 +51,7 @@ class ColabAuth:
       f"id_{algorithm}.pub"
     )
 
-    if generate:
+    if generate or regenerate:
       if regenerate:
         if os.path.isfile(remote_private_key_path):
           os.system(f"rm {remote_private_key_path}")
