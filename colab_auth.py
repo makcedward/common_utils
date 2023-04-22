@@ -1,9 +1,9 @@
-import os
-
 try:
   from google.colab import drive
 except:
   print(f"Not in Colab env?")
+import os
+
 
 class ColabAuth:
   @staticmethod
