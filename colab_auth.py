@@ -76,6 +76,7 @@ class ColabAuth:
         print("Public Key")
         print(f.read())
 
+  @staticmethod
   def openai(
     generate=False,
     key=None,
