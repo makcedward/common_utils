@@ -2,7 +2,7 @@ try:
   from google.colab import drive
 except:
   print(f"Not in Colab env?")
-improt os
+import os
 
 
 class ColabStore:
