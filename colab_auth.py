@@ -6,6 +6,13 @@ import os
 
 
 class ColabAuth:
+  DRIVE_BASE_DIR = "/content/drive/"
+
+  @staticmethod
+  def mount():
+    if not os.path.exists(ColabAuth.DRIVE_BASE_DIR):
+      drive.mount(ColabAuth.DRIVE_BASE_DIR)
+
   @staticmethod
   def ssh(
     generate:bool=False,
@@ -30,8 +37,14 @@ class ColabAuth:
     algorithm: str
       Algorithm for generating SSH key.
     """
-    drive.mount('/content/drive/')
-    remote_key_dir = "/content/drive/MyDrive/config/.colab-github"
+    
+    ColabAuth.mount()
+    remote_key_dir = os.path.join(
+      ColabAuth.DRIVE_BASE_DIR,
+      "MyDrive",
+      "config",
+      ".colab-github"
+    )
     remote_private_key_path = os.path.join(
       remote_key_dir,
       f"id_{algorithm}"
@@ -82,7 +95,16 @@ class ColabAuth:
     key=None,
     show:bool=False,
   ):
-    remote_file_path = "/content/drive/MyDrive/config/.openai/api_key.txt"
+    ColabAuth.mount()
+
+    remote_file_path = os.path.join(
+      ColabAuth.DRIVE_BASE_DIR,
+      "MyDrive",
+      "config",
+      ".openai",
+      "api_key.txt"      
+    )
+
     if generate and key is not None:
       with open(remote_file_path, 'w') as f:
         f.write(key)
