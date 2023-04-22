@@ -75,3 +75,22 @@ class ColabAuth:
       with open(os.path.expanduser(local_public_key_path), "r") as f:
         print("Public Key")
         print(f.read())
+
+  def openai(
+    generate=False,
+    key=None,
+    show:bool=False,
+  ):
+    remote_file_path = "/content/drive/MyDrive/config/.openai/api_key.txt"
+    if generate and key is not None:
+      with open(remote_file_path, 'w') as f:
+        f.write(key)
+
+    if os.path.exists(remote_file_path):
+      with open(remote_file_path, 'r') as f:
+        key = f.read()
+        if show:
+          print(key)
+        os.environ["OPENAI_API_KEY"] = key
+    else:
+      print("No OpenAI API Key.")
